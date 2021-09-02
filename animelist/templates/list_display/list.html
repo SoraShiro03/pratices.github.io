@@ -1,0 +1,64 @@
+{% extends 'list_display/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+
+  
+
+  <div class="row" style="padding: 5%;">
+    {% for anime in anime_posts %}
+      <div class="card text-center" style="width: 18rem; margin: 20px;" >
+        <img src="{{ anime.image.url }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{anime.name}}</h5>
+          <p class="card-text">
+            {{anime.description|truncatechars:100}}
+          </p>
+          <a href="{{ anime.get_absolute_url }}" class="btn btn-primary btn-center">Go somewhere</a>
+          <small class="card text-center">{{anime.date_posted}}</small>
+    
+        <p>
+        Tags:
+        {% for tag in anime.tags.all %}
+          <a href="{% url "list_by_tag" tag.slug %}">
+            {{tag.name}}
+          </a>
+          {% if not forloop.last %}, {% endif %}
+        
+        {% endfor %}
+        </p>
+      
+    
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+
+
+
+</div>
+<!-- test card -->
+
+{% comment %} <div class="card-group">
+    <div class="card">
+        <img src="{{'anime.image.url'}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{anime.name}}</h5>
+            <p class="card-text">{{anime.description}}</p>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">{{anime.date_posted}}</small>
+        </div>
+    </div>
+  </div>
+ {% endcomment %}
+
+{% include "list_display/pagination.html" with page=anime_posts %}
+
+ 
+{% endblock content %}

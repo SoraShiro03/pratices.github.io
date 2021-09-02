@@ -1,0 +1,7 @@
+<ul>
+{% for anime in latest_anime %}
+<li>
+<a href="{{ anime.get_absolute_url }}">{{ anime.name }}</a>
+</li>
+{% endfor %}
+</ul>

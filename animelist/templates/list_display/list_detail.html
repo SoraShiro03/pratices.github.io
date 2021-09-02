@@ -1,0 +1,63 @@
+{% extends 'list_display/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card col d-flex justify-content-center">
+  <div style="display: block;margin-left: auto; margin-right: auto;">
+    <div style="text-align: center;">
+      <img src="{{ anime.image.url }}">
+    </div>
+
+    <div class="card text-center" style="padding: 4%;font-size: 140%;">
+      <div class="card-body">
+        <h5 class="card-title" style="font-size: 140%;">{{anime.name}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text">{{anime.description}}</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% comment %} similar anime list {% endcomment %}
+<br>
+<h1><* Related Anime *></h1>
+<div class="row" style="padding: 5%;">
+  {% for similar_anime in similar_anime_type %}
+
+  <div class="card text-center" style="width: 18rem;margin:20px" >
+    <img src="{{ similar_anime.image.url }}" class="card-img-top" alt="...">
+    <div class="card-body">
+
+      <h5 class="card-title">{{similar_anime.name}}</h5>
+      <p class="card-text">
+        {{similar_anime.description|truncatechars:100}}
+      </p>
+      <a href="{{ similar_anime.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
+      <p>{{similar_anime.date_posted}}</p>
+
+      <p>
+        Tags:
+        {% for tag in anime.tags.all %}
+        <a href="{% url "list_by_tag" tag.slug %}">
+          {{tag.name}}
+        </a>
+        {% if not forloop.last %}, {% endif %}
+
+        {% endfor %}
+      </p>
+
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+
+
+
+
+
+
+{% endblock content %}
